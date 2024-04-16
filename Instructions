@@ -1,0 +1,31 @@
+Stanly Samuel
+13664
+
+1) Run ./bs (broadcast server) in all three machines in the following format:s 
+	./bs <Message Listening Port> <Token Listening Port> <Destination IP Address> <Destination-Port>
+For last machine also add -t so that it sends the token (This is the only thing different from my implementation)
+
+	Eg: 	On same machine with different processes
+
+		Machine 1: ./bs 3099 8088 127.0.0.1 8081
+		Machine 1: ./bs 3000 8081 127.0.0.1 8082
+		Machine 2: ./bs 3001 8082 127.0.0.1 8088 -t
+
+		On different machines
+
+		Machine 1: ./bs 3000 8080 10.192.38.167 8080
+		Machine 2: ./bs 3000 8080 10.192.38.168 8080
+		Machine 3: ./bs 3000 8080 10.192.38.166 8080 -t
+
+ The three machines will keep passing empty token now.
+
+2) Now start the application processes in the local machines in the following format:
+	./app <Broadcast Server Port> <Multicast Listening Port>
+
+You can send any number of apps in any node. It will work
+
+Eg: ./app 3000 5000
+
+The Multicast Listening Port MUST be same for ALL apps in a single NODE. This is because we use a multicast class D scheme which encodes the Multicast address 239.0.01 which is nothing but a group.
+The application keeps sending the messages to be broadcasted to the broadcast server which appends the message to the token in the token ring which is sent along to all servers. Once broadcasted messages are recieved by all broadcast servers, the broadcast server send the message to the application.
+
