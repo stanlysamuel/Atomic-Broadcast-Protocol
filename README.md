@@ -1,4 +1,4 @@
 # Atomic-Broadcast-Protocol
-Total Ordering Atomic Broadcast Protocol using Token Ring
+Total Ordering Broadcast Protocol (Atomic Broadcast Protocol) using Token Ring
 
 Distributed Systems Course Mini Project - April 2017
